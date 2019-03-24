@@ -56,7 +56,7 @@ Although all contributions should have good UX, the [UX label, when applied in c
 
 ## Code Overview
 
-The entry point for this application is `src/renderer/index.js`.
+The entry point for this application is `src/platforms/electron/index.js`.
 
 This application is primarily written in JavaScript and is built on [Electron](https://electronjs.org)
 while utilizing [React](https://reactjs.org) and [Redux](https://redux.js.org) for UI and
@@ -66,10 +66,9 @@ The project comes with diverse tools for simplifying the development process and
 better code quality. It's recommended to make use of them thoroughly during ongoing development. We follow the well-known [Airbnb JavaScript Style Guide](https://airbnb.io/javascript/) for defining
 our styling rules and code best practices.
 
-### lbry-redux
+### lbry-redux and lbryinc
 
-This project uses [lbry-redux](https://github.com/lbryio/lbry-redux) to share Redux code with [lbry-android](https://github.com/lbryio/lbry-android) and other LBRY apps. Over time, more Redux code that is suitable to be shared will be moved into lbry-redux. If modifying Redux code, you may be asked to make some of your changes in lbry-redux rather than lbry-desktop. The steps to work with lbry-redux locally can be found [here](https://github.com/lbryio/lbry-redux#local-development).
-
+This project uses [lbry-redux](https://github.com/lbryio/lbry-redux) and [lbryionc](https://github.com/lbryio/lbryinc) to share Redux and LBRY API specific code with [lbry-android](https://github.com/lbryio/lbry-android) and other LBRY apps. Over time, more Redux code that is suitable to be shared will be moved into lbry-redux. If modifying Redux code, you may be asked to make some of your changes in lbry-redux rather than lbry-desktop. The steps to work with lbry-redux locally can be found [here](https://github.com/lbryio/lbry-redux#local-development).
 
 ### Flow
 
@@ -86,7 +85,6 @@ If you add a project dependency and you want to use it with Flow, you need to im
 definitions in the project by running:
 
 `$ yarn flow-defs`
-
 
 ### Lint
 
@@ -183,11 +181,11 @@ will earn you an extra 50 LBC on top of what we would otherwise tip you.
 
 | Name                                    | Role                                                                                                                                                                                                           | Discord     | Email        |
 | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------
-| [Tom](https://github.com/tzarebczan)    | Community manager. He knows more than anyone about the app and all of its flaws. Reach out to him with any questions about how the app works, if a bug has been reported, or if a feature should be requested. | jiggytom    | tom@lbry.io  |
-| [Sean](https://github.com/seanyesmunt)  | The primary engineer working on the app. Feel free to ask any questions about the code.                                                                          | sean        | sean@lbry.io |
+| [Tom](https://github.com/tzarebczan)    | Community manager. He knows more than anyone about the app and all of its flaws. Reach out to him with any questions about how the app works, if a bug has been reported, or if a feature should be requested. | jiggytom    | tom@lbry.com  |
+| [Sean](https://github.com/seanyesmunt)  | The primary engineer working on the app. Feel free to ask any questions about the code.                                                                          | sean        | sean@lbry.com |
 
-Join our Discord [here](https://chat.lbry.io/).
+Join our Discord [here](https://chat.lbry.com/).
 
 # More Information
 
-More information about contributing to LBRY [here](https://lbry.io/faq/contributing).
+More information about contributing to LBRY [here](https://lbry.com/faq/contributing).

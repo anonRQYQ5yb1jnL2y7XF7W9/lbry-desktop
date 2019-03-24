@@ -1,0 +1,8 @@
+@mixin placeholder {
+  animation: pulse 2s infinite ease-in-out;
+  background-color: $lbry-gray-2;
+
+  html[data-mode='dark'] & {
+    background-color: rgba($lbry-white, 0.1);
+  }
+}

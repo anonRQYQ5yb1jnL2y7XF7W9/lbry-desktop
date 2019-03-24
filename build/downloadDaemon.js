@@ -1,4 +1,3 @@
-/* eslint-disable no-console,import/no-extraneous-dependencies,import/no-commonjs */
 const path = require('path');
 const fs = require('fs');
 const packageJSON = require('../package.json');
@@ -89,8 +88,4 @@ const downloadDaemon = targetPlatform =>
     }
   });
 
-module.exports = downloadDaemon;
-
-require('make-runnable/custom')({
-  printOutputFrame: false,
-});
+downloadDaemon();

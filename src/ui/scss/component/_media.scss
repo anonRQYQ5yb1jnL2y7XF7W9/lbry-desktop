@@ -1,0 +1,584 @@
+//  M E D I A
+//  C A R D
+.media-card {
+  font-size: 1.2rem;
+
+  .media__title {
+    margin-bottom: var(--spacing-vertical-small);
+  }
+
+  .media__properties {
+    height: 1em;
+  }
+}
+
+//  M E D I A
+//  T I L E
+
+.media-tile {
+  display: flex;
+  font-size: 1.5rem;
+  position: relative;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--spacing-vertical-large);
+  }
+
+  .media__thumb {
+    width: 20rem;
+  }
+
+  .media__info {
+    margin-left: var(--spacing-vertical-medium);
+    width: calc(80% - 20rem);
+    min-width: 40rem;
+  }
+}
+
+.media-tile--large {
+  font-size: 2rem;
+
+  .media__thumb {
+    width: 30rem;
+  }
+
+  .media__info {
+    margin-left: var(--spacing-vertical-large);
+    flex: 1;
+  }
+
+  .media__subtext {
+    font-size: 0.7em;
+  }
+}
+
+.media-tile--small {
+  font-size: 1.2rem;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--spacing-vertical-medium);
+  }
+
+  .media__thumb {
+    width: 11em;
+  }
+
+  .media__info {
+    width: calc(100% - 10em);
+    min-width: auto;
+    position: relative;
+  }
+
+  .media__title {
+    margin-bottom: var(--spacing-vertical-small);
+  }
+
+  .media__subtext:last-child {
+    margin-bottom: 0;
+  }
+
+  .media__properties {
+    bottom: 0.5rem;
+    left: calc(-100% - -2rem);
+    position: absolute;
+    padding: 0 var(--spacing-vertical-small);
+    border-radius: 5px;
+    background-color: $lbry-white;
+    color: $lbry-black;
+  }
+}
+
+//  M E D I A
+//  P E N D I N G
+
+.media--pending {
+  opacity: 0.5;
+
+  &:hover {
+    cursor: default;
+  }
+}
+
+//  M E D I A
+//  T H U M B
+
+.media__thumb {
+  @include thumbnail;
+
+  &:not(.media__thumb--nsfw) {
+    background-color: $lbry-gray-2;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    html[data-mode='dark'] & {
+      background-color: rgba($lbry-white, 0.1);
+    }
+  }
+}
+
+.media__thumb--nsfw {
+  background-color: $lbry-grape-5;
+  background-image: linear-gradient(to bottom right, $lbry-teal-3, $lbry-grape-5 100%);
+}
+
+//  M E D I A
+//  T I T L E
+
+.media__title {
+  font-weight: 600;
+  white-space: normal;
+  font-size: 1em;
+}
+
+.media__title--large {
+  cursor: default;
+  display: inline;
+  font-size: 2rem;
+  line-height: 1.33;
+  margin-right: var(--spacing-vertical-small);
+}
+
+//  M E D I A
+//  A C T I O N S
+
+.media__actions {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-vertical-small);
+  margin-bottom: var(--spacing-vertical-small);
+}
+
+.media__actions--between {
+  justify-content: space-between;
+}
+
+.media__action-group {
+  > *:not(:last-child) {
+    margin-right: var(--spacing-vertical-medium);
+  }
+}
+
+.media__action-group--large {
+  display: flex;
+  margin-top: var(--spacing-vertical-small);
+  margin-bottom: var(--spacing-vertical-small);
+
+  > * {
+    font-size: 1.15rem;
+
+    &:not(:last-child) {
+      margin-right: var(--spacing-vertical-large);
+    }
+  }
+
+  &:not(:last-child) {
+    margin-right: var(--spacing-vertical-large);
+  }
+}
+
+//  M E D I A
+//  C O N T E N T
+
+.media__content--large {
+  padding-right: var(--spacing-vertical-large);
+}
+
+// M E D I A
+// S U B T E X T
+//
+// Wrapper around low level media information (date, channel)
+//
+.media__subtext {
+  color: rgba($lbry-black, 0.8);
+  font-size: 0.9em;
+
+  &:not(:last-child) {
+    margin-bottom: var(--spacing-vertical-medium);
+  }
+
+  html[data-mode='dark'] & {
+    color: rgba($lbry-white, 0.7);
+  }
+}
+
+.media__subtext--large {
+  font-size: 1.2em;
+}
+
+//  M E D I A
+//  S U B T I T L E
+
+.media__subtitle {
+  font-size: 0.8em;
+  color: rgba($lbry-black, 0.8);
+
+  [data-mode='dark'] & {
+    color: rgba($lbry-white, 0.8);
+  }
+}
+
+.media__subtitle--large {
+  display: block;
+
+  > button {
+    display: block;
+  }
+}
+
+.media__subtitle__channel {
+  font-weight: 600;
+}
+
+//  M E D I A
+//  I N F O
+
+.media__info {
+  word-wrap: break-word;
+
+  html[data-mode='dark'] & {
+    border-color: rgba($lbry-gray-5, 0.2);
+  }
+}
+
+.media__info--large {
+  border-top: 1px solid $lbry-gray-1;
+  padding-top: var(--spacing-vertical-medium);
+
+  html[data-mode='dark'] & {
+    border-color: rgba($lbry-gray-5, 0.2);
+  }
+}
+
+.media__info-text {
+  font-size: 1.15rem;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--spacing-vertical-large);
+  }
+
+  &.media__info-text--center {
+    text-align: center;
+  }
+}
+
+.media__info-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-vertical-small);
+}
+
+//  M E D I A
+//  M E S S A G E
+
+.media__message {
+  font-size: 1.1rem;
+  padding: var(--spacing-vertical-medium);
+  margin: var(--spacing-vertical-medium) var(--spacing-vertical-large);
+  white-space: normal;
+}
+
+//  M E D I A
+//  P R O P E R T I E S
+
+.media__properties {
+  display: flex;
+  align-items: center;
+
+  &:not(:empty) {
+    margin-top: var(--spacing-vertical-small);
+  }
+
+  > *:not(:last-child) {
+    margin-right: var(--spacing-vertical-small);
+  }
+}
+
+.media__properties--large {
+  display: inline-block;
+  vertical-align: top;
+
+  &:not(:empty) {
+    height: 2.55rem;
+    margin-top: 0px;
+
+    margin-bottom: var(--spacing-vertical-small);
+    padding-top: var(--spacing-vertical-small);
+  }
+
+  .badge {
+    align-items: center;
+    position: relative;
+
+    > *:not(:last-child) {
+      margin-right: var(--spacing-vertical-small);
+    }
+  }
+}
+
+//  M E D I A
+//  T E X T
+
+.media__text {
+  font-size: 2.5rem;
+
+  html[data-mode='dark'] & {
+    color: $lbry-white;
+  }
+}
+
+//  M E D I A
+//  G R O U P
+
+.media-group--list {
+  .card__list {
+    padding-top: var(--spacing-vertical-large);
+    padding-bottom: var(--spacing-vertical-large);
+
+    // Depending on screen width, the amount of items in
+    // each row change and are auto-sized
+
+    @media (min-width: 2001px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 10), 1fr));
+    }
+
+    @media (min-width: 1801px) and (max-width: 2000px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 8), 1fr));
+    }
+
+    @media (min-width: 1551px) and (max-width: 1800px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 7), 1fr));
+    }
+
+    @media (min-width: 1051px) and (max-width: 1550px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 6), 1fr));
+    }
+
+    @media (min-width: 901px) and (max-width: 1050px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 5), 1fr));
+    }
+
+    @media (min-width: 751px) and (max-width: 900px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 4), 1fr));
+    }
+
+    @media (max-width: 750px) {
+      grid-template-columns: repeat(auto-fill, minmax(calc(100% / 3), 1fr));
+    }
+  }
+
+  .media-card {
+    display: inline-block;
+    margin-bottom: var(--spacing-vertical-large);
+    vertical-align: top;
+    width: 100%;
+  }
+
+  .media__thumb {
+    margin-bottom: var(--spacing-vertical-medium);
+  }
+}
+
+.media-group--list-recommended {
+  border-left: 1px solid $lbry-gray-1;
+  min-height: 50vh;
+  overflow: hidden;
+  width: 30rem;
+  padding-left: var(--spacing-vertical-large);
+
+  html[data-mode='dark'] & {
+    border-color: rgba($lbry-gray-5, 0.2);
+  }
+
+  > span {
+    border-bottom: 1px solid $lbry-gray-1;
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 500;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-vertical-large);
+    padding-top: var(--spacing-vertical-small);
+    padding-bottom: var(--spacing-vertical-medium);
+
+    html[data-mode='dark'] & {
+      border-color: rgba($lbry-gray-5, 0.2);
+    }
+  }
+}
+
+.media-group--row {
+  padding-top: var(--spacing-vertical-large);
+  white-space: nowrap;
+  width: 100%;
+
+  html[data-mode='dark'] & {
+    color: mix($lbry-white, $lbry-gray-3, 50%);
+  }
+
+  &:first-of-type {
+    background-image: linear-gradient(to bottom right, $lbry-black, $lbry-cyan-5 80%);
+    color: $lbry-white;
+
+    html[data-mode='dark'] & {
+      background-image: linear-gradient(
+        to bottom right,
+        transparent,
+        rgba(mix($lbry-blue-3, $lbry-black, 70%), 0.8) 100%
+      );
+    }
+    .media-group__header-title {
+      background-image: linear-gradient(to right, $lbry-white 80%, transparent 100%);
+    }
+
+    .channel-info__actions {
+      color: $lbry-white;
+    }
+
+    .media__subtitle {
+      color: mix($lbry-cyan-5, $lbry-white, 20%);
+    }
+  }
+
+  &:not(:first-of-type):not(:last-of-type) {
+    border-bottom: 1px solid rgba($lbry-gray-1, 0.7);
+
+    html[data-mode='dark'] & {
+      border-color: rgba($lbry-gray-5, 0.2);
+    }
+  }
+
+  .media-group__header {
+    flex-direction: row;
+    padding-left: var(--spacing-vertical-large);
+  }
+
+  .media-group__header-title {
+    // color: transparent; // TODO: Add this back for lbryweb, it helps with long titles but was causing issues. A better solution is needed. - Sean
+    // !exist unprefixed, needs SVG for LBRY web
+    -webkit-background-clip: text;
+    background-image: linear-gradient(to right, $lbry-white 80%, transparent 100%);
+
+    html[data-mode='dark'] & {
+      background-image: linear-gradient(
+        to right,
+        mix($lbry-white, $lbry-gray-3, 50%) 80%,
+        transparent 100%
+      );
+    }
+  }
+
+  .media__thumb {
+    margin-bottom: var(--spacing-vertical-medium);
+  }
+}
+
+//  M E D I A   G R O U P
+//  H E A D E R
+
+.media-group__header {
+  display: flex;
+  font-weight: 700;
+  justify-content: space-between;
+}
+
+.media-group__header-navigation {
+  display: flex;
+  padding-right: var(--spacing-vertical-large);
+
+  button:not(:last-of-type) {
+    margin-right: var(--spacing-vertical-medium);
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.media-group__header-title {
+  align-items: center;
+  cursor: default;
+  display: flex;
+  font-weight: 700;
+  line-height: 1.33;
+  width: calc(100% - 6rem); // to not cover the navigation
+
+  // Title needs adjusting depending on screen width
+
+  @media (min-width: 601px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1.75rem;
+  }
+
+  .channel-info__actions__group {
+    button:first-of-type {
+      font-size: 2rem;
+
+      .button__label {
+        margin: 0;
+      }
+    }
+
+    button:last-of-type {
+      font-weight: normal;
+    }
+  }
+}
+
+//  M E D I A
+//  S C R O L L H O U S E
+
+.media-scrollhouse {
+  min-height: 200px;
+  padding-bottom: var(--spacing-vertical-large);
+
+  // Show the scroll bar on hover
+  // `overlay` doesn't take up any vertical space
+  overflow-x: hidden;
+  overflow-y: hidden;
+  &:hover {
+    overflow-x: overlay;
+  }
+
+  // The media queries in this block ensure that a row of
+  // content and its' child elements look good at certain breakpoints
+
+  @media (min-width: 601px) {
+    padding-top: var(--spacing-vertical-small);
+  }
+
+  @media (max-width: 600px) {
+    padding-top: var(--spacing-vertical-medium);
+  }
+
+  // Handles the margin on the right side of the last item
+  // Overflow: hidden makes doesn't care if the margin is off the screen, just the content
+  // Using padding shrinks the last item
+  &::after {
+    content: '';
+    display: inline-block;
+    width: var(--spacing-vertical-large);
+    height: 1px;
+  }
+
+  .media-card {
+    cursor: pointer;
+    display: inline-block;
+    max-width: 250px;
+    min-width: 150px;
+    overflow-y: visible;
+    vertical-align: top;
+
+    @media (min-width: 601px) {
+      width: calc((100% / 6) - 2.25rem);
+      margin-left: var(--spacing-vertical-large);
+    }
+  }
+}
+
+.badge--alert {
+  background-color: $lbry-red-2;
+  color: $lbry-white;
+}

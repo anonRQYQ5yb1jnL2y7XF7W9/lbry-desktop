@@ -1,0 +1,246 @@
+@import '~@lbry/components/sass/form/_index.scss';
+
+// lbry/components overrides and minor styles
+
+input[type='number'] {
+  width: 8em;
+}
+
+input[type='text'],
+input[type='number'],
+select {
+  padding-bottom: 0.1em;
+
+  [data-mode='dark'] & {
+    &::placeholder {
+      opacity: 0.4;
+    }
+  }
+}
+
+fieldset-section {
+  label {
+    width: auto;
+    text-transform: none;
+  }
+
+  checkbox-element,
+  radio-element {
+    label {
+      font-size: medium;
+    }
+  }
+}
+
+checkbox-element {
+  &[disabled='true'] {
+    opacity: 0.3;
+  }
+}
+
+checkbox-element,
+radio-element,
+fieldset:last-child,
+fieldset-section:last-child {
+  margin-bottom: 0;
+}
+
+checkbox-element,
+radio-element {
+  input[type='checkbox']:checked + label {
+    color: $lbry-black;
+
+    [data-mode='dark'] & {
+      color: $lbry-white;
+
+      &:hover {
+        color: $lbry-teal-4;
+      }
+    }
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+}
+
+fieldset-group {
+  &.fieldset-group--smushed {
+    justify-content: flex-start;
+
+    fieldset-section {
+      width: auto;
+      margin-bottom: 0;
+
+      &:first-of-type {
+        input {
+          border-right: none;
+        }
+      }
+    }
+
+    &.fieldgroup--paginate {
+      margin-top: var(--spacing-vertical-medium);
+      align-items: center;
+      justify-content: center;
+
+      .pagination {
+        margin-bottom: -1em;
+      }
+    }
+  }
+
+  // This is a special case where the prefix appears "inside" the input
+  // It would be way simpler to just use position: absolute and give it a width
+  // but the width can change when we use it for the name prefix
+  // lbry:// {input}, lbry://@short {input}, @lbry://longername {input}
+  // The spacing/alignment isn't very robust and will probably need to be changed
+  // if we use this in more places
+  &.fieldset-group--disabled-prefix {
+    align-items: flex-end;
+
+    label {
+      min-height: 18px;
+    }
+
+    fieldset-section:first-child .form-field__prefix,
+    fieldset-section:last-child input {
+      border-color: $lbry-black;
+
+      [data-mode='dark'] {
+        border-color: $lbry-gray-4;
+      }
+    }
+
+    fieldset-section:first-child {
+      .form-field__prefix {
+        white-space: nowrap;
+        padding: 0.2rem var(--spacing-s);
+        padding-right: 0;
+        border: 1px solid;
+        border-right: 0;
+        color: $lbry-gray-4;
+      }
+    }
+
+    fieldset-section:last-child {
+      width: 100%;
+
+      input {
+        border-left: 0;
+        padding-left: var(--spacing-xs);
+
+        &:focus {
+          border-image-slice: 1;
+          border-image-source: linear-gradient(to right, $lbry-black, $lbry-teal-5 5%);
+        }
+
+        [data-mode='dark'] & {
+          &:focus {
+            border-image-source: linear-gradient(to right, $lbry-gray-4, $lbry-teal-5 5%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// form buttons are black by default
+form {
+  [type='button'],
+  [type='submit'] {
+    &.button--primary {
+      &:not(:hover) {
+        background-color: $lbry-teal-5;
+        border-color: $lbry-teal-5;
+      }
+
+      &:hover {
+        background-color: $lbry-teal-3;
+        border-color: $lbry-teal-3;
+      }
+    }
+
+    &.button--inverse {
+      @extend .button--inverse;
+    }
+  }
+}
+
+fieldset-section {
+  input-submit {
+    input,
+    select {
+      &:first-child:not(:focus) {
+        border-right-color: transparent;
+      }
+    }
+
+    .button__content {
+      position: relative;
+      top: -0.1em;
+    }
+  }
+
+  select {
+    max-width: 12em;
+    background-color: $lbry-white;
+
+    [data-mode='dark'] & {
+      background-color: transparent;
+
+      option {
+        background-color: $lbry-gray-5;
+      }
+    }
+  }
+
+  [data-mode='dark'] & {
+    input,
+    textarea,
+    select {
+      color: $lbry-white;
+    }
+
+    input:not(:focus):not(.form-field--copyable),
+    textarea:not(:focus),
+    select:not(:focus) {
+      border-color: $lbry-gray-4;
+    }
+  }
+}
+
+.form-field--copyable {
+  background-color: rgba($lbry-gray-1, 0.3);
+  border: 1px solid $lbry-gray-1;
+  color: $lbry-gray-5;
+  flex: 1;
+  padding: 0.2rem 0.75rem;
+  text-overflow: ellipsis;
+  user-select: text;
+  cursor: default;
+
+  html[data-mode='dark'] & {
+    background-color: rgba($lbry-white, 0.3);
+    border-color: $lbry-gray-5;
+    color: inherit;
+  }
+}
+
+label + .react-toggle,
+.react-toggle + label {
+  margin-left: var(--spacing-vertical-small);
+}
+
+.form-field__help {
+  @extend .help;
+  margin-top: var(--spacing-vertical-medium);
+}
+
+.form-field--price-amount {
+  width: 7em;
+}
+
+.form-field--address {
+  width: 370px;
+}
