@@ -28,6 +28,8 @@ export default appState => {
     width: windowState.width === undefined ? width : windowState.width,
     height: windowState.height === undefined ? height : windowState.height,
 
+    icon: 'static/img/tray/default/tray.png',
+
     webPreferences: {
       // Disable renderer process's webSecurity on development to enable CORS.
       webSecurity: !isDev,
