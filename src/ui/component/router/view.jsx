@@ -1,5 +1,5 @@
 import * as PAGES from 'constants/pages';
-import React, { useEffect } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import SettingsPage from 'page/settings';
 import HelpPage from 'page/help';
@@ -21,62 +21,48 @@ import UserHistoryPage from 'page/userHistory';
 import SendCreditsPage from 'page/sendCredits';
 import NavigationHistory from 'page/navigationHistory';
 
-let main = null;
-let scrollLocations = {};
-
-function AppRouter(props) {
-  console.log('props', props.location);
-  const { key } = props.location;
-
-  useEffect(() => {
-    main = document.querySelector('main');
-    main.addEventListener('scroll', handleScroll);
-    return () => main.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    console.log('key change', key);
-    console.log('pos', scrollLocations);
-    console.log('got it?', scrollLocations[key]);
-    if (scrollLocations[key]) {
-      debugger;
-      main.scrollTo(0, scrollLocations[key]);
-    } else {
-      main.scrollTo(0, 0);
+class ScrollToTop extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      window.scrollTo(0, 0);
     }
-  }, [key]);
+  }
 
-  const handleScroll = ({ target }) => {
-    scrollLocations[key] = target.scrollTop;
-  };
-
-  return (
-    <Switch>
-      <Route path="/" exact component={DiscoverPage} />
-      <Route path={`/$/${PAGES.AUTH}`} exact component={AuthPage} />
-      <Route path={`/$/${PAGES.BACKUP}`} exact component={BackupPage} />
-      <Route path={`/$/${PAGES.INVITE}`} exact component={InvitePage} />
-      <Route path={`/$/${PAGES.DOWNLOADED}`} exact component={FileListDownloaded} />
-      <Route path={`/$/${PAGES.PUBLISHED}`} exact component={FileListPublished} />
-      <Route path={`/$/${PAGES.HELP}`} exact component={HelpPage} />
-      <Route path={`/$/${PAGES.PUBLISH}`} exact component={PublishPage} />
-      <Route path={`/$/${PAGES.REPORT}`} exact component={ReportPage} />
-      <Route path={`/$/${PAGES.REWARDS}`} exact component={RewardsPage} />
-      <Route path={`/$/${PAGES.SEARCH}`} exact component={SearchPage} />
-      <Route path={`/$/${PAGES.SETTINGS}`} exact component={SettingsPage} />
-      <Route path={`/$/${PAGES.SUBSCRIPTIONS}`} exact component={SubscriptionsPage} />
-      <Route path={`/$/${PAGES.TRANSACTIONS}`} exact component={TransactionHistoryPage} />
-      <Route path={`/$/${PAGES.HISTORY}`} exact component={UserHistoryPage} />
-      <Route path={`/$/${PAGES.ACCOUNT}`} exact component={AccountPage} />
-      <Route path={`/$/${PAGES.SEND}`} exact component={SendCreditsPage} />
-      <Route path={`/$/${PAGES.HISTORY}`} exact component={UserHistoryPage} />
-      <Route path={`/$/${PAGES.HISTORY}/all`} exact component={NavigationHistory} />
-
-      {/* Below need to go at the end to make sure we don't match any of our pages first */}
-      <Route path="/:claimName/:claimId" component={ShowPage} />
-      <Route path="/:claimName" component={ShowPage} />
-    </Switch>
-  );
+  render() {
+    return this.props.children;
+  }
 }
 
-export default withRouter(AppRouter);
+const Scroll = withRouter(ScrollToTop);
+
+export default function AppRouter() {
+  return (
+    <Scroll>
+      <Switch>
+        <Route path="/" exact component={DiscoverPage} />
+        <Route path={`/$/${PAGES.AUTH}`} exact component={AuthPage} />
+        <Route path={`/$/${PAGES.BACKUP}`} exact component={BackupPage} />
+        <Route path={`/$/${PAGES.INVITE}`} exact component={InvitePage} />
+        <Route path={`/$/${PAGES.DOWNLOADED}`} exact component={FileListDownloaded} />
+        <Route path={`/$/${PAGES.PUBLISHED}`} exact component={FileListPublished} />
+        <Route path={`/$/${PAGES.HELP}`} exact component={HelpPage} />
+        <Route path={`/$/${PAGES.PUBLISH}`} exact component={PublishPage} />
+        <Route path={`/$/${PAGES.REPORT}`} exact component={ReportPage} />
+        <Route path={`/$/${PAGES.REWARDS}`} exact component={RewardsPage} />
+        <Route path={`/$/${PAGES.SEARCH}`} exact component={SearchPage} />
+        <Route path={`/$/${PAGES.SETTINGS}`} exact component={SettingsPage} />
+        <Route path={`/$/${PAGES.SUBSCRIPTIONS}`} exact component={SubscriptionsPage} />
+        <Route path={`/$/${PAGES.TRANSACTIONS}`} exact component={TransactionHistoryPage} />
+        <Route path={`/$/${PAGES.HISTORY}`} exact component={UserHistoryPage} />
+        <Route path={`/$/${PAGES.ACCOUNT}`} exact component={AccountPage} />
+        <Route path={`/$/${PAGES.SEND}`} exact component={SendCreditsPage} />
+        <Route path={`/$/${PAGES.HISTORY}`} exact component={UserHistoryPage} />
+        <Route path={`/$/${PAGES.HISTORY}/all`} exact component={NavigationHistory} />
+
+        {/* Below need to go at the end to make sure we don't match any of our pages first */}
+        <Route path="/:claimName/:claimId" component={ShowPage} />
+        <Route path="/:claimName" component={ShowPage} />
+      </Switch>
+    </Scroll>
+  );
+}

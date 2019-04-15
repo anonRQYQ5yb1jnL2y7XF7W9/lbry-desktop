@@ -2,8 +2,8 @@
 .app-wrapper {
   display: grid;
   overflow-y: scroll;
-  grid-template-rows: var(--header-height) 1fr;
-  grid-template-columns: var(--side-nav-width) 1fr;
+  grid-template-rows: var(--header-height) auto;
+  grid-template-columns: var(--side-nav-width) auto;
   height: 100vh;
   grid-template-areas:
     'header   header'
@@ -12,7 +12,7 @@
   .header {
     grid-area: header;
     height: var(--header-height);
-    position: sticky;
+    position: fixed;
   }
   .navigation {
     grid-area: navigation;
