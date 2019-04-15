@@ -62,7 +62,7 @@ class DiscoverPage extends React.PureComponent<Props> {
 
     return (
       <Page noPadding isLoading={!hasContent && fetchingFeaturedUris}>
-        <FirstRun />
+        {/* <FirstRun /> */}
         {hasContent &&
           Object.keys(featuredUris).map(category => (
             <CategoryList

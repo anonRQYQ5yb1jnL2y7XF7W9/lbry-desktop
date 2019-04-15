@@ -55,7 +55,7 @@ class CategoryList extends PureComponent<Props, State> {
     if (!fetching && categoryLink && (!urisInList || !urisInList.length)) {
       // Only fetch the channels claims if no urisInList are specifically passed in
       // This allows setting a channel link and and passing in a custom list of urisInList (featured content usually works this way)
-      fetchChannel(categoryLink);
+      // fetchChannel(categoryLink);
     }
 
     const scrollWrapper = this.scrollWrapper.current;
@@ -68,10 +68,10 @@ class CategoryList extends PureComponent<Props, State> {
 
       if (lazyLoad) {
         if (window.innerHeight > scrollWrapper.offsetTop) {
-          resolveUris(urisInList);
+          // resolveUris(urisInList);
         }
       } else {
-        resolveUris(urisInList);
+        // resolveUris(urisInList);
       }
     }
   }

@@ -1,0 +1,79 @@
+// Handle top level page layout here
+.app-wrapper {
+  display: grid;
+  overflow-y: scroll;
+  grid-template-rows: var(--header-height) 1fr;
+  grid-template-columns: var(--side-nav-width) 1fr;
+  height: 100vh;
+  grid-template-areas:
+    'header   header'
+    'navigation  main';
+
+  .header {
+    grid-area: header;
+    height: var(--header-height);
+    position: sticky;
+  }
+  .navigation {
+    grid-area: navigation;
+    position: sticky;
+  }
+  .main {
+    grid-area: main;
+    overflow-y: scroll;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  background-color: mix($lbry-white, $lbry-gray-1, 70%);
+
+  html[data-mode='dark'] & {
+    background-color: $lbry-black;
+  }
+
+  &.main--contained {
+    max-width: 1000px;
+  }
+
+  &:not(.main--no-padding) {
+    padding: var(--spacing-vertical-large);
+  }
+}
+
+.main--file-page {
+  max-width: var(--file-page-max-width);
+  display: grid;
+  grid-gap: var(--spacing-vertical-large);
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'content content'
+    'info    related';
+
+  @media (min-width: 1470px) {
+    grid-template-areas:
+      'content related'
+      'info    related';
+  }
+
+  .grid-area--content {
+    grid-area: content;
+  }
+  .grid-area--info {
+    grid-area: info;
+  }
+  .grid-area--related {
+    grid-area: related;
+  }
+}
+
+.main__empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  text-align: center;
+}

@@ -314,10 +314,10 @@ export function doDaemonReady() {
 
     dispatch(doAuthenticate(appVersion));
     dispatch({ type: ACTIONS.DAEMON_READY });
-    dispatch(doFetchDaemonSettings());
-    dispatch(doBalanceSubscribe());
 
     // @if TARGET='app'
+    dispatch(doBalanceSubscribe());
+    dispatch(doFetchDaemonSettings());
     dispatch(doFetchFileInfosAndPublishedClaims());
     if (!selectIsUpgradeSkipped(state)) {
       dispatch(doCheckUpgradeAvailable());

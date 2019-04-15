@@ -1,6 +1,6 @@
 import * as PAGES from 'constants/pages';
 import React, { useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import SettingsPage from 'page/settings';
 import HelpPage from 'page/help';
 import ReportPage from 'page/report';
@@ -21,7 +21,35 @@ import UserHistoryPage from 'page/userHistory';
 import SendCreditsPage from 'page/sendCredits';
 import NavigationHistory from 'page/navigationHistory';
 
-export default function AppRouter() {
+let main = null;
+let scrollLocations = {};
+
+function AppRouter(props) {
+  console.log('props', props.location);
+  const { key } = props.location;
+
+  useEffect(() => {
+    main = document.querySelector('main');
+    main.addEventListener('scroll', handleScroll);
+    return () => main.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    console.log('key change', key);
+    console.log('pos', scrollLocations);
+    console.log('got it?', scrollLocations[key]);
+    if (scrollLocations[key]) {
+      debugger;
+      main.scrollTo(0, scrollLocations[key]);
+    } else {
+      main.scrollTo(0, 0);
+    }
+  }, [key]);
+
+  const handleScroll = ({ target }) => {
+    scrollLocations[key] = target.scrollTop;
+  };
+
   return (
     <Switch>
       <Route path="/" exact component={DiscoverPage} />
@@ -50,3 +78,5 @@ export default function AppRouter() {
     </Switch>
   );
 }
+
+export default withRouter(AppRouter);

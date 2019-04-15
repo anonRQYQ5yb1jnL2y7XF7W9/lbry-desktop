@@ -67,16 +67,12 @@ class App extends React.PureComponent<Props> {
     const { enhancedLayout } = this.props;
 
     return (
-      <div id="window" onContextMenu={e => openContextMenu(e)}>
+      <div id="window" className="app-wrapper" onContextMenu={e => openContextMenu(e)}>
         <Header />
-        <section className="page">
-          {enhancedLayout && <Yrbl className="yrbl--enhanced" />}
-          <SideBar />
-          <div className="content" id="content">
-            <Router />
-            <ModalRouter />
-          </div>
-        </section>
+        <SideBar />
+        <Router />
+        <ModalRouter />
+        {enhancedLayout && <Yrbl className="yrbl--enhanced" />}
       </div>
     );
   }

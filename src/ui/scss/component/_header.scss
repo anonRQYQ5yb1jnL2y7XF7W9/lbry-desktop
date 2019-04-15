@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  height: var(--header-height);
 
   align-items: center;
   background-color: $lbry-white;
@@ -10,7 +9,7 @@
   z-index: 1;
 
   html[data-mode='dark'] & {
-    background-color: rgba($lbry-black, 0.9);
+    background-color: $lbry-black;
     color: $lbry-white;
   }
 }
@@ -22,7 +21,7 @@
     // Main navigation collapses into a menu button
     // at smaller screen widths
     @media (min-width: 601px) {
-      width: 170px;
+      width: calc(var(--side-nav-width) - 1px);
     }
 
     @media (max-width: 600px) {
@@ -170,7 +169,8 @@
   .header__navigation-item--back,
   .header__navigation-item--forward,
   .header__navigation-item--home,
-  .header__navigation-item--right-action {
+  .header__navigation-item--right-action,
+  .header__navigation-item--wallet {
     display: none;
   }
 

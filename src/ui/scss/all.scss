@@ -1,6 +1,5 @@
 @charset "utf-8";
 
-// @import '~@lbry/color/lbry-color';
 @import '~@lbry/components/sass/init/_color.scss';
 @import '~@lbry/components/sass/init/_mixins.scss';
 @import '~@lbry/components/sass/init/_variables.scss';
@@ -9,6 +8,7 @@
 @import 'init/mixins';
 @import 'init/type';
 @import 'init/gui';
+@import 'main';
 @import 'component/animation';
 @import 'component/badge';
 @import 'component/banner';
@@ -25,7 +25,6 @@
 @import 'component/header';
 @import 'component/item-list';
 @import 'component/load-screen';
-@import 'component/main';
 @import 'component/markdown-editor';
 @import 'component/markdown-preview';
 @import 'component/media';
@@ -33,10 +32,8 @@
 @import 'component/modal';
 @import 'component/navigation';
 @import 'component/notice';
-@import 'component/page';
 @import 'component/pagination';
 @import 'component/placeholder';
-@import 'component/scrollbar';
 @import 'component/search';
 @import 'component/snack-bar';
 @import 'component/spinner';
