@@ -1,6 +1,4 @@
 // @flow
-import type { Claim } from 'types/claim';
-import type { UrlLocation } from 'types/location';
 import * as icons from 'constants/icons';
 import * as MODALS from 'constants/modal_types';
 import React, { useEffect } from 'react';
@@ -19,8 +17,8 @@ type Props = {
   totalPages: number,
   fetching: boolean,
   params: { page: number },
-  claim: Claim,
-  claimsInChannel: Array<Claim>,
+  claim: ChannelClaim,
+  claimsInChannel: Array<StreamClaim>,
   channelIsMine: boolean,
   fetchClaims: (string, number) => void,
   history: { push: string => void },

@@ -1,5 +1,4 @@
 // @flow
-import type { Claim, Metadata } from 'types/claim';
 import * as ICONS from 'constants/icons';
 import React, { Fragment } from 'react';
 import { normalizeURI, parseURI } from 'lbry-redux';
@@ -22,8 +21,8 @@ type Props = {
   uri: string,
   isResolvingUri: boolean,
   rewardedContentClaimIds: Array<string>,
-  claim: ?Claim,
-  metadata: ?Metadata,
+  claim: ?StreamClaim,
+  metadata: ?StreamMetadata,
   resolveUri: string => void,
   clearPublish: () => void,
   updatePublishForm: ({}) => void,
@@ -128,7 +127,7 @@ class FileTile extends React.PureComponent<Props> {
     const description = isClaimed && metadata && metadata.description ? metadata.description : '';
     const title =
       isClaimed && metadata && metadata.title ? metadata.title : parseURI(uri).contentName;
-    const thumbnail = metadata && metadata.thumbnail ? metadata.thumbnail : null;
+    const thumbnail = metadata && metadata.thumbnail_url ? metadata.thumbnail_url : null;
 
     let height;
     let name;

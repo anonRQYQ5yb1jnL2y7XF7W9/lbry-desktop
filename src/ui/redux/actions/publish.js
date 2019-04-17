@@ -1,6 +1,4 @@
 // @flow
-import type { Dispatch, GetState } from 'types/redux';
-import type { Metadata } from 'types/claim';
 import type {
   UpdatePublishFormData,
   UpdatePublishFormAction,
@@ -144,9 +142,7 @@ export const doPrepareEdit = (claim: any, uri: string) => (dispatch: Dispatch) =
     name,
     amount,
     channel_name: channelName,
-    value: {
-      stream: { metadata },
-    },
+    value: { stream },
   } = claim;
 
   const {
@@ -158,13 +154,12 @@ export const doPrepareEdit = (claim: any, uri: string) => (dispatch: Dispatch) =
       amount: 0,
       currency: 'LBC',
     },
-    language,
+    languages,
     license,
-    licenseUrl,
-    nsfw,
-    thumbnail,
+    license_url: licenseUrl,
+    thumbnail_url: thumbnail,
     title,
-  } = metadata;
+  } = stream;
 
   const publishData: UpdatePublishFormData = {
     name,
@@ -175,8 +170,7 @@ export const doPrepareEdit = (claim: any, uri: string) => (dispatch: Dispatch) =
     author,
     description,
     fee,
-    language,
-    nsfw,
+    languages,
     thumbnail,
     title,
     uri,
@@ -204,6 +198,8 @@ export const doPrepareEdit = (claim: any, uri: string) => (dispatch: Dispatch) =
 };
 
 export const doPublish = (params: PublishParams) => (dispatch: Dispatch, getState: () => {}) => {
+  dispatch({ type: ACTIONS.PUBLISH_START });
+
   const state = getState();
   const myChannels = selectMyChannelClaims(state);
   const myClaims = selectMyClaimsWithoutChannels(state);
@@ -217,7 +213,6 @@ export const doPublish = (params: PublishParams) => (dispatch: Dispatch, getStat
     license,
     licenseUrl,
     thumbnail,
-    nsfw,
     channel,
     title,
     contentIsFree,
@@ -230,42 +225,38 @@ export const doPublish = (params: PublishParams) => (dispatch: Dispatch, getStat
   const channelId = namedChannelClaim ? namedChannelClaim.claim_id : '';
   const fee = contentIsFree || !price.amount ? undefined : { ...price };
 
-  const metadata: Metadata = {
-    title,
-    nsfw,
-    license,
-    licenseUrl,
-    language,
-    thumbnail,
-    description: description || undefined,
-  };
-
-  const publishPayload: {
-    name: ?string,
-    channel_id: string,
-    bid: ?number,
-    metadata: ?Metadata,
+  const publishPayload: GenericMetadata & {
+    name: string,
+    channel_id?: string,
+    bid: number,
     file_path?: string,
   } = {
     name,
-    channel_id: channelId,
     bid: creditsToString(bid),
-    metadata,
+    title,
+    license,
+    license_url: licenseUrl,
+    languages: [language],
+    thumbnail_url: thumbnail,
+    description,
   };
 
-  if (fee) {
-    metadata.fee = {
-      currency: fee.currency,
-      amount: creditsToString(fee.amount),
-    };
+  if (channelId) {
+    publishPayload.channel_id = channelId;
   }
+
+  if (fee) {
+    publishPayload.fee_currency = fee.currency;
+    publishPayload.fee_amount = creditsToString(fee.amount);
+  }
+
   // only pass file on new uploads, not metadata only edits.
   if (filePath) publishPayload.file_path = filePath;
 
-  dispatch({ type: ACTIONS.PUBLISH_START });
-
-  const success = pendingClaim => {
+  const success = successResponse => {
     analytics.apiLogPublish();
+
+    const pendingClaim = successResponse.outputs[0];
     const actions = [];
 
     actions.push({
@@ -280,8 +271,8 @@ export const doPublish = (params: PublishParams) => (dispatch: Dispatch, getStat
     const isMatch = claim => claim.claim_id === pendingClaim.claim_id;
     const isEdit = myClaims.some(isMatch);
     const myNewClaims = isEdit
-      ? myClaims.map(claim => (isMatch(claim) ? pendingClaim.output : claim))
-      : myClaims.concat(pendingClaim.output);
+      ? myClaims.map(claim => (isMatch(claim) ? pendingClaim : claim))
+      : myClaims.concat(pendingClaim);
 
     actions.push({
       type: ACTIONS.FETCH_CLAIM_LIST_MINE_COMPLETED,
@@ -313,7 +304,7 @@ export const doCheckPendingPublishes = () => (dispatch: Dispatch, getState: GetS
   let publishCheckInterval;
 
   const checkFileList = () => {
-    Lbry.claim_list_mine().then(claims => {
+    Lbry.claim_list().then(claims => {
       claims.forEach(claim => {
         // If it's confirmed, check if it was pending previously
         if (claim.confirmations > 0 && pendingById[claim.claim_id]) {
@@ -322,7 +313,7 @@ export const doCheckPendingPublishes = () => (dispatch: Dispatch, getState: GetS
           // If it's confirmed, check if we should notify the user
           if (selectosNotificationsEnabled(getState())) {
             const notif = new window.Notification('LBRY Publish Complete', {
-              body: `${claim.value.stream.metadata.title} has been published to lbry://${
+              body: `${claim.value.stream.title} has been published to lbry://${
                 claim.name
               }. Click here to view it`,
               silent: false,

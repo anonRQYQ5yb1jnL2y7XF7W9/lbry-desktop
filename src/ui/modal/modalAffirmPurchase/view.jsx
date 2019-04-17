@@ -2,14 +2,13 @@
 import React from 'react';
 import FilePrice from 'component/filePrice';
 import { Modal } from 'modal/modal';
-import type { Metadata } from 'types/claim';
 
 type Props = {
   closeModal: () => void,
   loadVideo: string => void,
   uri: string,
   cancelPurchase: () => void,
-  metadata: Metadata,
+  metadata: StreamMetadata,
 };
 
 class ModalAffirmPurchase extends React.PureComponent<Props> {

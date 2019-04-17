@@ -1,6 +1,4 @@
 // @flow
-import type { Claim, Metadata } from 'types/claim';
-import type { FileInfo } from 'types/file_info';
 import type { Node } from 'react';
 import React, { Fragment, PureComponent } from 'react';
 import { Lbryio } from 'lbryinc';
@@ -10,9 +8,9 @@ import Expandable from 'component/expandable';
 import path from 'path';
 
 type Props = {
-  claim: Claim,
-  fileInfo: FileInfo,
-  metadata: Metadata,
+  claim: StreamClaim,
+  fileInfo: FileListItem,
+  metadata: StreamMetadata,
   openFolder: string => void,
   contentType: string,
   clickCommentButton: () => void,

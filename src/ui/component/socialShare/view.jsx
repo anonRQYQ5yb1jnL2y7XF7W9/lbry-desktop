@@ -1,5 +1,4 @@
 // @flow
-import type { Claim } from 'types/claim';
 import * as ICONS from 'constants/icons';
 import React from 'react';
 import Button from 'component/button';
@@ -7,7 +6,7 @@ import CopyableText from 'component/copyableText';
 import ToolTip from 'component/common/tooltip';
 
 type Props = {
-  claim: Claim,
+  claim: StreamClaim,
   onDone: () => void,
   speechShareable: boolean,
   isChannel: boolean,

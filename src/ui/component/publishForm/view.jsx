@@ -1,5 +1,4 @@
 // @flow
-import type { Claim } from 'types/claim';
 import type { PublishParams, UpdatePublishFormData } from 'redux/reducers/publish';
 import { COPYRIGHT, OTHER } from 'constants/licenses';
 import { CHANNEL_NEW, CHANNEL_ANONYMOUS, MINIMUM_PUBLISH_BID } from 'constants/claim';
@@ -40,7 +39,7 @@ type Props = {
   nameError: ?string,
   isResolvingUri: boolean,
   winningBidForClaimUri: number,
-  myClaimForUri: ?Claim,
+  myClaimForUri: ?StreamClaim,
   licenseType: string,
   otherLicenseDescription: ?string,
   licenseUrl: ?string,
@@ -231,12 +230,6 @@ class PublishForm extends React.PureComponent<Props> {
       channel: this.props.channel,
       isStillEditing: this.props.isStillEditing,
     };
-
-    // Editing a claim
-    if (!filePath && myClaimForUri && myClaimForUri.value) {
-      const { source } = myClaimForUri.value.stream;
-      publishParams.sources = source;
-    }
 
     publish(publishParams);
   }
@@ -589,7 +582,8 @@ class PublishForm extends React.PureComponent<Props> {
                   <option value="zh">{__('Chinese')}</option>
                   <option value="fr">{__('French')}</option>
                   <option value="de">{__('German')}</option>
-                  <option value="jp">{__('Japanese')}</option>
+                  {/* BAD */}
+                  {/* <option value="jp">{__('Japanese')}</option> */}
                   <option value="ru">{__('Russian')}</option>
                   <option value="es">{__('Spanish')}</option>
                   <option value="id">{__('Indonesian')}</option>

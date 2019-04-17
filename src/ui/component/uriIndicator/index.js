@@ -4,11 +4,13 @@ import {
   doResolveUri,
   makeSelectIsUriResolving,
   makeSelectClaimForUri,
+  makeSelectChannelClaimForClaimUri,
 } from 'lbry-redux';
 import UriIndicator from './view';
 
 const select = (state, props) => ({
   claim: makeSelectClaimForUri(props.uri)(state),
+  channelClaim: makeSelectChannelClaimForClaimUri(props.uri)(state),
   isResolvingUri: makeSelectIsUriResolving(props.uri)(state),
   uri: normalizeURI(props.uri),
 });

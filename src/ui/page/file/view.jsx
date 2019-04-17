@@ -1,6 +1,4 @@
 // @flow
-import type { Claim, Metadata } from 'types/claim';
-import type { FileInfo } from 'types/file_info';
 import * as MODALS from 'constants/modal_types';
 import * as icons from 'constants/icons';
 import * as React from 'react';
@@ -22,9 +20,9 @@ import getMediaType from 'util/get-media-type';
 import RecommendedContent from 'component/recommendedContent';
 
 type Props = {
-  claim: Claim,
-  fileInfo: FileInfo,
-  metadata: Metadata,
+  claim: StreamClaim,
+  fileInfo: FileListItem,
+  metadata: StreamMetadata,
   contentType: string,
   uri: string,
   rewardedContentClaimIds: Array<string>,
@@ -140,18 +138,18 @@ class FilePage extends React.Component<Props> {
     } = this.props;
 
     // File info
-    const { title, thumbnail } = metadata;
+    const { title, thumbnail_url: thumbnail } = metadata;
     const { height, channel_name: channelName } = claim;
     const { PLAYABLE_MEDIA_TYPES, PREVIEW_MEDIA_TYPES } = FilePage;
     const isRewardContent = (rewardedContentClaimIds || []).includes(claim.claim_id);
     const shouldObscureThumbnail = obscureNsfw && metadata.nsfw;
     const fileName = fileInfo ? fileInfo.file_name : null;
     const mediaType = getMediaType(contentType, fileName);
-    console.log({
-      mediaType,
-      contentType,
-      fileName,
-    })
+    // console.log({
+    //   mediaType,
+    //   contentType,
+    //   fileName,
+    // });
     const showFile =
       PLAYABLE_MEDIA_TYPES.includes(mediaType) || PREVIEW_MEDIA_TYPES.includes(mediaType);
 

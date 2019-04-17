@@ -55,6 +55,7 @@ class HelpPage extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    Lbry.status().then(res => console.log(res));
     // @if TARGET='app'
     Native.getAppVersionInfo().then(({ localVersion, upgradeAvailable }) => {
       this.setState({
@@ -66,6 +67,7 @@ class HelpPage extends React.PureComponent<Props, State> {
     // @endif
 
     Lbry.version().then(info => {
+      console.log('info', info);
       this.setState({
         versionInfo: info,
       });

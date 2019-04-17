@@ -6,7 +6,6 @@ import RewardTile from 'component/rewardTile';
 import Button from 'component/button';
 import Page from 'component/page';
 import classnames from 'classnames';
-import type { Reward } from 'types/reward';
 import { rewards as REWARD_TYPES } from 'lbryinc';
 import UnsupportedOnWeb from 'component/common/unsupported-on-web';
 
@@ -138,8 +137,8 @@ class RewardsPage extends PureComponent<Props> {
             <p className="card__content">
               {claimed && claimed.length
                 ? __(
-                    "You have claimed all available rewards! We're regularly adding more so be sure to check back later."
-                  )
+                  "You have claimed all available rewards! We're regularly adding more so be sure to check back later."
+                )
                 : __('There are no rewards available at this time, please check back later.')}
             </p>
           </section>

@@ -4,7 +4,6 @@ import CardMedia from 'component/cardMedia';
 import TruncatedText from 'component/common/truncated-text';
 import classnames from 'classnames';
 import SubscribeButton from 'component/subscribeButton';
-import type { Claim } from 'types/claim';
 import { withRouter } from 'react-router-dom';
 import { formatLbryUriForWeb } from 'util/uri';
 
@@ -13,7 +12,7 @@ type Props = {
   isResolvingUri: boolean,
   totalItems: number,
   size: string,
-  claim: ?Claim,
+  claim: ?ChannelClaim,
   resolveUri: string => void,
   history: { push: string => void },
 };

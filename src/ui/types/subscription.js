@@ -1,5 +1,4 @@
 // @flow
-import type { Dispatch as ReduxDispatch } from 'types/redux';
 import * as ACTIONS from 'constants/action_types';
 import {
   DOWNLOADED,

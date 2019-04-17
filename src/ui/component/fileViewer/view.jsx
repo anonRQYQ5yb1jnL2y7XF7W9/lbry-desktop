@@ -3,14 +3,13 @@ import * as PAGES from 'constants/pages';
 import React, { Suspense } from 'react';
 import classnames from 'classnames';
 import analytics from 'analytics';
-import type { Claim } from 'types/claim';
 import LoadingScreen from 'component/common/loading-screen';
 import PlayButton from './internal/play-button';
 
-const Player = React.lazy(() => import(
-  /* webpackChunkName: "player-legacy" */
-  './internal/player'
-));
+const Player = React.lazy(() =>
+  import(/* webpackChunkName: "player-legacy" */
+    './internal/player')
+);
 
 const SPACE_BAR_KEYCODE = 32;
 
@@ -29,7 +28,7 @@ type Props = {
   },
   metadata: ?{
     nsfw: boolean,
-    thumbnail: string,
+    thumbnail_url: string,
   },
   autoplay: boolean,
   isLoading: boolean,
@@ -38,7 +37,7 @@ type Props = {
   contentType: string,
   changeVolume: number => void,
   volume: number,
-  claim: Claim,
+  claim: StreamClaim,
   uri: string,
   savePosition: (string, string, number) => void,
   position: ?number,
@@ -233,13 +232,13 @@ class FileViewer extends React.PureComponent<Props> {
     } = this.props;
 
     const isPlaying = playingUri === uri;
+    let isReadyToPlay = false;
     // @if TARGET='app'
-    const isReadyToPlay = fileInfo && fileInfo.download_path && fileInfo.written_bytes > 0;
+    isReadyToPlay = fileInfo && fileInfo.download_path && fileInfo.written_bytes > 0;
     // @endif
     // @if TARGET='web'
     // try to play immediately on web, we don't need to call file_list since we are streaming from reflector
-    // $FlowFixMe
-    const isReadyToPlay = isPlaying;
+    isReadyToPlay = isPlaying;
     // @endif
 
     const shouldObscureNsfw = obscureNsfw && metadata && metadata.nsfw;
@@ -255,7 +254,7 @@ class FileViewer extends React.PureComponent<Props> {
       loadStatusMessage = __('Downloading stream... not long left now!');
     }
 
-    const poster = metadata && metadata.thumbnail;
+    const poster = metadata && metadata.thumbnail_url;
     const layoverClass = classnames('content__cover', {
       'card__media--nsfw': shouldObscureNsfw,
       'card__media--disabled': insufficientCredits,
@@ -273,7 +272,7 @@ class FileViewer extends React.PureComponent<Props> {
                 <LoadingScreen status={loadStatusMessage} />
               </div>
             ) : (
-              <Suspense fallback={<div></div>}>
+              <Suspense fallback={<div />}>
                 <Player
                   fileName={fileInfo.file_name}
                   poster={poster}

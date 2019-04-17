@@ -1,10 +1,9 @@
 // @flow
 import React from 'react';
 import { Modal } from 'modal/modal';
-import type { Metadata } from 'types/claim';
 
 type Props = {
-  metadata: Metadata,
+  metadata: StreamMetadata,
   closeModal: () => void,
 };
 

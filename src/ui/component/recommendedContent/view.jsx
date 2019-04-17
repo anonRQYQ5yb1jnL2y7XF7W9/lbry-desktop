@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
 import FileTile from 'component/fileTile';
-import type { Claim } from 'types/claim';
 
 type Props = {
   uri: string,
-  claim: ?Claim,
+  claim: ?StreamClaim,
   recommendedContent: Array<string>,
   isSearching: boolean,
   search: string => void,
@@ -37,8 +36,8 @@ export default class RecommendedContent extends React.PureComponent<Props> {
   getRecommendedContent() {
     const { claim, search } = this.props;
 
-    if (claim && claim.value && claim.value.stream && claim.value.stream.metadata) {
-      const { title } = claim.value.stream.metadata;
+    if (claim && claim.value && claim.value.stream) {
+      const { title } = claim.value.stream;
       search(title);
       this.didSearch = true;
     }

@@ -49,6 +49,7 @@ class ChannelSection extends React.PureComponent<Props, State> {
   componentDidMount() {
     const { channels, fetchChannelListMine, fetchingChannels } = this.props;
     if (!channels.length && !fetchingChannels) {
+      console.log('fetch');
       fetchChannelListMine();
     }
   }

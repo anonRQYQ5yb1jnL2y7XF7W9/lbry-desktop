@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import type { Claim } from 'types/claim';
 import moment from 'moment';
 import classnames from 'classnames';
 import Button from 'component/button';
@@ -11,7 +10,7 @@ import { formatLbryUriForWeb } from 'util/uri';
 type Props = {
   lastViewed: number,
   uri: string,
-  claim: ?Claim,
+  claim: ?StreamClaim,
   selected: boolean,
   onSelect?: () => void,
   resolveUri: string => void,
@@ -39,7 +38,7 @@ class NavigationHistoryItem extends React.PureComponent<Props> {
     let title;
     if (claim && claim.value && claim.value.stream) {
       ({ name } = claim);
-      ({ title } = claim.value.stream.metadata);
+      ({ title } = claim.value.stream);
     }
 
     const navigatePath = formatLbryUriForWeb(uri);

@@ -1,46 +1,45 @@
 // @flow
-import type { Claim } from 'types/claim';
 import { remote } from 'electron';
 import React, { Suspense } from 'react';
 import LoadingScreen from 'component/common/loading-screen';
 import VideoViewer from 'component/viewers/videoViewer';
 
-const AudioViewer = React.lazy(() => import(
-  /* webpackChunkName: "audioViewer" */
-  'component/viewers/audioViewer'
-));
+const AudioViewer = React.lazy(() =>
+  import(/* webpackChunkName: "audioViewer" */
+    'component/viewers/audioViewer')
+);
 
-const DocumentViewer = React.lazy(() => import(
-  /* webpackChunkName: "documentViewer" */
-  'component/viewers/documentViewer'
-));
+const DocumentViewer = React.lazy(() =>
+  import(/* webpackChunkName: "documentViewer" */
+    'component/viewers/documentViewer')
+);
 
-const DocxViewer = React.lazy(() => import(
-  /* webpackChunkName: "docxViewer" */
-  'component/viewers/docxViewer'
-));
+const DocxViewer = React.lazy(() =>
+  import(/* webpackChunkName: "docxViewer" */
+    'component/viewers/docxViewer')
+);
 
-const HtmlViewer = React.lazy(() => import(
-  /* webpackChunkName: "htmlViewer" */
-  'component/viewers/htmlViewer'
-));
+const HtmlViewer = React.lazy(() =>
+  import(/* webpackChunkName: "htmlViewer" */
+    'component/viewers/htmlViewer')
+);
 
-const PdfViewer = React.lazy(() => import(
-  /* webpackChunkName: "pdfViewer" */
-  'component/viewers/pdfViewer'
-));
+const PdfViewer = React.lazy(() =>
+  import(/* webpackChunkName: "pdfViewer" */
+    'component/viewers/pdfViewer')
+);
 
 // @if TARGET='app'
-const ThreeViewer = React.lazy(() => import(
-  /* webpackChunkName: "threeViewer" */
-  'component/viewers/threeViewer'
-));
+const ThreeViewer = React.lazy(() =>
+  import(/* webpackChunkName: "threeViewer" */
+    'component/viewers/threeViewer')
+);
 // @endif
 
 type Props = {
   mediaType: string,
   poster?: string,
-  claim: Claim,
+  claim: StreamClaim,
   source: {
     stream: string => void,
     fileName: string,
@@ -155,11 +154,7 @@ class FileRender extends React.PureComponent<Props> {
         />
       ),
       audio: (
-        <AudioViewer
-          claim={claim}
-          source={{ downloadPath, fileName }}
-          contentType={contentType}
-        />
+        <AudioViewer claim={claim} source={{ downloadPath, fileName }} contentType={contentType} />
       ),
       // Add routes to viewer...
     };
@@ -182,7 +177,7 @@ class FileRender extends React.PureComponent<Props> {
 
     // @if TARGET='web'
     // temp workaround to disabled paid content on web
-    if (claim && claim.value.stream.metadata.fee && claim.value.stream.metadata.fee.amount > 0) {
+    if (claim && claim.value.stream.fee && claim.value.stream.fee.amount > 0) {
       const paidMessage = __(
         'Currently, only free content is available on lbry.tv. Try viewing it in the desktop app.'
       );
@@ -200,12 +195,10 @@ class FileRender extends React.PureComponent<Props> {
   }
 
   render() {
-    console.log('RENDER')
+    console.log('RENDER');
     return (
       <div className="file-render">
-        <React.Suspense fallback={<div></div>}>
-          {this.renderViewer()}
-        </React.Suspense>
+        <React.Suspense fallback={<div />}>{this.renderViewer()}</React.Suspense>
       </div>
     );
   }
